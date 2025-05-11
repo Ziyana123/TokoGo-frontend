@@ -1,0 +1,48 @@
+/* src/styles.css */
+
+.hero-banner {
+    background: url('/path-to-your-image.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 50px;
+    text-align: center;
+    color: white;
+  }
+  
+  .cta-btn {
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .cta-btn:hover {
+    background-color: #ff4500;
+  }
+  
+  .categories {
+    padding: 20px;
+  }
+  
+  .category-item {
+    display: inline-block;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .product-item img {
+    width: 100%;
+  }
+  
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
