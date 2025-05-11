@@ -1,5 +1,6 @@
 // axiosInstance.js
 import axios from 'axios';
+import { useAuth } from './context/AuthContext'
 
 const axiosInstance = axios.create({
   baseURL: 'https://tokogo-backend.onrender.com/api',
@@ -9,7 +10,7 @@ const axiosInstance = axios.create({
 
 
 axiosInstance.interceptors.request.use((config) => {
-  const { token } = useAuth(); // Get token from AuthContext
+  const { token } = useAuth(); 
 
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`; // Attach the token to the header if available
