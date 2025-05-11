@@ -33,6 +33,7 @@ const ImageSlider = () => {
             <img
               src={image}
               alt={`Toko Slide ${index + 1}`}
+              loading="lazy" 
               className="w-full h-full object-cover"
             />
           </SwiperSlide>

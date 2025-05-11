@@ -19,7 +19,9 @@ import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 const UserRoute = () => {
-  const { user, guestView } = useAuth();
+  const { user, guestView, loading  } = useAuth();
+
+  if (loading) return null; 
 
   if (guestView) {
     return [
@@ -36,14 +38,6 @@ const UserRoute = () => {
     ];
   }
 
-  // if (!user) {
-  //   return [
-  //     {
-  //       path: "/",
-  //       element: <Navigate to="/login" replace />,
-  //     },
-  //   ];
-  // }
 
   return [
     {

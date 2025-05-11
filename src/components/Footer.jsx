@@ -33,7 +33,9 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <p className="text-center text-sm mt-4 text-gray-400">© 2025 TokoGo. All rights reserved.</p>
+        <p className="text-center text-sm mt-4 text-gray-400">
+          © {new Date().getFullYear()} TokoGo. All rights reserved.
+        </p>
       </div>
     </footer>
   );

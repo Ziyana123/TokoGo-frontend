@@ -1,43 +1,4 @@
-// import { useRoutes } from 'react-router-dom';
-// import AdminLayout from '../layouts/AdminLayout';
-// import AdminDashboard from '../pages/admin/AdminDashboard';
-// import ManageProducts from '../pages/admin/ManageProducts';
-// import ManageCategories from '../pages/admin/ManageCategories';
-// import ManageUsers from '../pages/admin/ManageUsers';
-// import AdminSchedules from '../pages/admin/AdminSchedules';
-// import CreateProduct from '../pages/admin/CreateProduct';
-// import EditProduct from '../pages/admin/EditProduct';
-// import AdminRegister from '../pages/admin/AdminRegister';
-// import SharedRoute from './SharedRoute';
 
-// const AdminRoute = () => {
-//   const routes = useRoutes([
-//     {
-//       path: '/admin',
-//       element: <AdminLayout />,
-//       children: [
-//         { path: 'register-admin', element: <AdminRegister />},
-//         { path: 'dashboard', element: <SharedRoute allowedRoles={['admin']}><AdminDashboard /></SharedRoute> },
-//         { path: 'products', element: <SharedRoute allowedRoles={['admin']}><ManageProducts /></SharedRoute> },
-//         { path: 'categories', element: <SharedRoute allowedRoles={['admin']}><ManageCategories /></SharedRoute> },
-//         { path: 'users', element: <SharedRoute allowedRoles={['admin']}><ManageUsers /></SharedRoute> },
-//         { path: 'schedules', element: <SharedRoute allowedRoles={['admin']}><AdminSchedules /></SharedRoute> },
-
-//         { path: 'products/edit/:id', element: <SharedRoute allowedRoles={['admin']}><EditProduct /></SharedRoute> },
-//         { path: 'products/create', element: <SharedRoute allowedRoles={['admin']}><CreateProduct /></SharedRoute> }
-//       ],
-//     },
-//   ]);
-
-//   return routes;
-// };
-
-// export default AdminRoute;
-
-
-
-
-// src/routes/AdminRoute.jsx
 import { Navigate } from 'react-router-dom';
 import AdminLayout from '../layouts/AdminLayout';
 import AdminDashboard from '../pages/admin/AdminDashboard';
@@ -52,7 +13,9 @@ import SharedRoute from './SharedRoute';
 import { useAuth } from '../context/AuthContext';
 
 const AdminRoute = () => {
-  const { user, guestView } = useAuth();
+  const { user, guestView ,loading} = useAuth();
+
+  if (loading) return null; 
 
   if (!user || user.role !== 'admin' || guestView) {
     return [

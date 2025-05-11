@@ -1,20 +1,3 @@
-// import React from 'react';
-// import { useLocation, Navigate } from 'react-router-dom';
-// import { useAuth } from '../context/AuthContext';
-
-// const SharedRoute = ({ children }) => {
-//   const { user } = useAuth();
-//   const location = useLocation();
-
-//   if (!user) return <Navigate to="/login" replace />;
-//   if (allowedRoles && !allowedRoles.includes(user.role)) {
-//     return <Navigate to="/" replace />; // or a 403 page
-//   }
-//   return children;
-// };
-
-// export default SharedRoute;
-
 
 
 import React from 'react';
