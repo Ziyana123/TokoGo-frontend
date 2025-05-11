@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from '../services/api';
+import axios from '../axiosInstance';
 import { useAuth } from '../context/AuthContext';
 import StarRating from "./StarRating";
 import { toast } from 'react-toastify';
