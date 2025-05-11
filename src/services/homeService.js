@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set up API base URL if needed
-const API_URL =  'http://localhost:3000/api';
+const API_URL =  'https://toko-go-frontend-ko1d.vercel.app/api';
 
 // Function to get products
 export const getProducts = async () => {
