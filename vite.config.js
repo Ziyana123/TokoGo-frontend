@@ -11,4 +11,5 @@ export default defineConfig({
       '/api': 'https://tokogo-backend.onrender.com', // Redirect API requests to backend
     },
   },
+  mode: 'development',
 })

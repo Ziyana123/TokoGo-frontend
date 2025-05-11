@@ -11,8 +11,8 @@
     "tailwind": "tailwindcss"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^3.6.0",
-    "@stripe/stripe-js": "^7.2.0",
+    "@stripe/react-stripe-js": "^3.7.0",
+    "@stripe/stripe-js": "^7.3.0",
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.8.4",
     "framer-motion": "^12.10.4",
