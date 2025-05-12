@@ -7,7 +7,7 @@ import Profile from '../pages/user/Profile';
 import SmartPackBuilder from "../pages/user/SmartPackBuilder";
 import MyPacks from '../pages/user/MyPacks';
 import EditPack from '../pages/user/EditPack';
-import Payment from '../pages/user/Payment';
+import StripePayment from '../pages/user/Payment';
 import Checkout from '../pages/user/Checkout';
 import OrderConfirmation from '../pages/user/OrderConfirmation';
 import MyOrders from '../pages/user/MyOrders';
@@ -52,7 +52,7 @@ const UserRoute = () => {
         { path: 'profile', element: <SharedRoute><Profile /></SharedRoute> },
         { path: 'smartpack/build', element: <SharedRoute><SmartPackBuilder /></SharedRoute> },
         { path: 'my-packs', element: <SharedRoute><MyPacks /></SharedRoute> },
-        { path: 'payment', element: <SharedRoute><Payment /></SharedRoute> },
+        { path: 'payment', element: <SharedRoute><StripePayment /></SharedRoute> },
         { path: 'smartpack/edit/:id', element: <SharedRoute><EditPack /></SharedRoute> },
         { path: 'checkout', element: <SharedRoute><Checkout /></SharedRoute> },
         { path: 'order-confirmation', element: <SharedRoute><OrderConfirmation /></SharedRoute> },
