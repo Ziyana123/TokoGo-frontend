@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../axiosInstance";
 import { toast } from "react-toastify";
 import { Users, Package, ShoppingCart, CalendarClock } from "lucide-react";
 
@@ -18,12 +18,7 @@ const AdminDashboard = () => {
         }
 
         
-        const res = await axios.get("/api/admins/dashboard-stats", {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
+        const res = await axios.get("/admins/dashboard-stats");
 
         if (res.data) {
           setStats(res.data);
