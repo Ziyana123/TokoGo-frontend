@@ -3,6 +3,7 @@ import axios from '../axiosInstance';
 import { useAuth } from '../context/AuthContext';
 import StarRating from "./StarRating";
 import { toast } from 'react-toastify';
+
 import { Edit, Trash2, X } from 'lucide-react';
 
 const ProductModal = ({ product, onClose, addToCart }) => {
