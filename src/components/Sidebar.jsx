@@ -14,17 +14,17 @@ import {
 } from 'lucide-react';
 
 const Sidebar = () => {
-  const { logout, guestView, setGuestView, user } = useAuth();
+  const { logout, guestView, enableGuestView, disableGuestView, user } = useAuth();
   const navigate = useNavigate();
 
   const handleGoToSite = () => {
-    setGuestView(true);
+    enableGuestView();
     navigate('/');
     toast.info('You are now viewing the public site');
   };
 
   const handleViewAsAdmin = () => {
-    setGuestView(false);
+    disableGuestView();
     toast.info('You have switched back to the Admin view');
   };
 

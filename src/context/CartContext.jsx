@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = async () => {
     if (!user) return;
     try {
-      const { data } = await axios.get('/cart', { withCredentials: true });
+      const { data } = await axios.get('/cart');
       setCartItems(data.items || []);
       if (!user) {
         localStorage.setItem('cartItems', JSON.stringify(data.items));

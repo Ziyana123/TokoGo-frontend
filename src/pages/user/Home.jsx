@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import HeroBanner from '../../components/HeroBanner';
 import PopularCategories from '../../components/PopularCategories';
 import TopProducts from '../../components/TopProducts';
-import axios from 'axios';
+import axios from '../../axiosInstance';
 import { useCart } from '../../context/CartContext';
 import ImageSlider from '../../components/ImageSlider';
 

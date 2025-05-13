@@ -30,65 +30,131 @@ const Payment = () => {
     }
   }, [shippingInfo, cartItems, navigate, isRedirected]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!stripe || !elements) return;
 
-    setIsProcessing(true);
-    setError('');
+  //   setIsProcessing(true);
+  //   setError('');
 
-    const cardElement = elements.getElement(CardElement);
-    const { token, error: stripeError } = await stripe.createToken(cardElement);
+  //   const cardElement = elements.getElement(CardElement);
+  //   const { token, error: stripeError } = await stripe.createToken(cardElement);
 
-    if (stripeError) {
-      setError(stripeError.message);
-      setIsProcessing(false);
-      return;
-    }
+  //   if (stripeError) {
+  //     setError(stripeError.message);
+  //     setIsProcessing(false);
+  //     return;
+  //   }
 
-    const amount = cartItems.reduce((acc, item) => {
-      const price = item?.product?.price || item?.productId?.price || item?.price || 0;
-      return acc + price * item.quantity;
-    }, 0);
+  //   const amount = cartItems.reduce((acc, item) => {
+  //     const price = item?.product?.price || item?.productId?.price || item?.price || 0;
+  //     return acc + price * item.quantity;
+  //   }, 0);
 
-    const sanitizedItems = cartItems.map((item) => {
-      const id = item._id;
-      return id ? { productId: id, quantity: item.quantity } : null;
-    }).filter(Boolean);
+  //   const sanitizedItems = cartItems.map((item) => {
+  //     const id = item._id;
+  //     return id ? { productId: id, quantity: item.quantity } : null;
+  //   }).filter(Boolean);
 
-    try {
-      const paymentResult = await axios.post(
-        '/payment',
-        {
-          token: token.id,
-          amount,
-          items: sanitizedItems,
-          address: `${shippingInfo.name}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.zipCode}, ${shippingInfo.country}`,
-          deliveryDate: null,
-          deliveryType: 'standard',
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
+  //   try {
+  //     const paymentResult = await axios.post(
+  //       '/payment',
+  //       {
+  //         token: token.id,
+  //         amount,
+  //         items: sanitizedItems,
+  //         address: `${shippingInfo.name}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.zipCode}, ${shippingInfo.country}`,
+  //         deliveryDate: null,
+  //         deliveryType: 'standard',
+  //       },
+  //       {
+  //         headers: { 'Content-Type': 'application/json' },
+  //         withCredentials: true,
+  //       }
+  //     );
 
-      if (paymentResult.data.success) {
-        // No need to call separate order creation
-        setCartItems([]);
-        setIsRedirected(true);
-        navigate('/order-confirmation', {
-          state: { orderId: paymentResult.data.orderId },
-        });
-      } else {
-        setError('Payment failed. Please try again.');
+  //     if (paymentResult.data.success) {
+  //       // No need to call separate order creation
+  //       setCartItems([]);
+  //       setIsRedirected(true);
+  //       navigate('/order-confirmation', {
+  //         state: { orderId: paymentResult.data.orderId },
+  //       });
+  //     } else {
+  //       setError('Payment failed. Please try again.');
+  //     }
+  //   } catch (err) {
+  //     setError(err.response?.data?.message || 'Error processing payment.');
+  //   } finally {
+  //     setIsProcessing(false);
+  //   }
+  // };
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!stripe || !elements) return;
+
+  setIsProcessing(true);
+  setError('');
+
+  const cardElement = elements.getElement(CardElement);
+  const result = await stripe.createToken(cardElement);
+
+  if (result.error) {
+    setError(result.error.message);
+    setIsProcessing(false);
+    return;
+  }
+
+  const token = result.token;
+
+  const amount = cartItems.reduce((acc, item) => {
+    const price = item?.product?.price || item?.productId?.price || item?.price || 0;
+    return acc + price * item.quantity;
+  }, 0);
+
+  const sanitizedItems = cartItems.map((item) => {
+    const id = item._id;
+    return id ? { productId: id, quantity: item.quantity } : null;
+  }).filter(Boolean);
+
+  try {
+    const paymentResult = await axios.post(
+      '/payment',
+      {
+        token: token.id,
+        amount,
+        items: sanitizedItems,
+        address: `${shippingInfo.name}, ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.zipCode}, ${shippingInfo.country}`,
+        deliveryDate: null,
+        deliveryType: 'standard',
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
       }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Error processing payment.');
-    } finally {
-      setIsProcessing(false);
+    );
+
+    if (paymentResult.data.success) {
+      setCartItems([]);
+      setIsRedirected(true);
+      navigate('/order-confirmation', {
+        state: { orderId: paymentResult.data.orderId },
+      });
+    } else {
+      setError('Payment failed. Please try again.');
     }
-  };
+  } catch (err) {
+    setError(err.response?.data?.message || 'Error processing payment.');
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
+
+
+
 
   return (
     <div className="p-6">

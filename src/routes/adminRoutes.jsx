@@ -8,11 +8,10 @@ import ManageUsers from '../pages/admin/ManageUsers';
 import AdminSchedules from '../pages/admin/ManageSchedulesAdmin';
 import CreateProduct from '../pages/admin/CreateProduct';
 import EditProduct from '../pages/admin/EditProduct';
-import AdminRegister from '../pages/admin/AdminRegister';
 import SharedRoute from './SharedRoute';
 import { useAuth } from '../context/AuthContext';
 
-const AdminRoute = () => {
+const adminRoutes = () => {
   const { user, guestView ,loading} = useAuth();
 
   if (loading) return null; 
@@ -34,7 +33,6 @@ const AdminRoute = () => {
       element: <AdminLayout />,
       children: [
         { path: '', element: <Navigate to="dashboard" /> },
-        // { path: 'register-admin', element: <AdminRegister /> },
         { path: 'dashboard', element: <SharedRoute allowedRoles={['admin']}><AdminDashboard /></SharedRoute> },
         { path: 'products', element: <SharedRoute allowedRoles={['admin']}><ManageProducts /></SharedRoute> },
         { path: 'categories', element: <SharedRoute allowedRoles={['admin']}><ManageCategories /></SharedRoute> },
@@ -46,4 +44,4 @@ const AdminRoute = () => {
     },
   ];
 };
-export default AdminRoute;
+export default adminRoutes;

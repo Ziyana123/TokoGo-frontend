@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Set up API base URL if needed
-const API_URL =  'https://toko-go-frontend-ko1d.vercel.app/api';
+// Set up API base URL to point to the backend
+const API_URL = 'https://tokogo-backend.onrender.com/api'; // Replace with your actual backend URL
 
 // Function to get products
 export const getProducts = async () => {
@@ -27,10 +27,15 @@ export const getCategories = async () => {
 
 // Function to get personalized recommendations (AI-based)
 export const getPersonalizedRecommendation = async (userId) => {
+  const token = localStorage.getItem('token'); // Ensure token is available
+  if (!token) {
+    throw new Error('No token found');
+  }
+
   try {
     const response = await axios.get(`${API_URL}/ai/my-recommendations`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`, // Assumes the token is stored in localStorage
+        Authorization: `Bearer ${token}`, // Send token in the Authorization header
       },
     });
     return response.data;

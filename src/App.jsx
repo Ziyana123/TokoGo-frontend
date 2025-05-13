@@ -6,20 +6,20 @@ import { useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserRoute from './routes/UserRoute';
-import AdminRoute from './routes/AdminRoute';
+import adminRoutes from './routes/adminRoutes';
 import AdminRegister from './pages/admin/AdminRegister';
 
 
 function App() {
-  const { user, loading } = useAuth();
+  const { user, loading, guestView  } = useAuth();
 
 
   const routes = useRoutes([
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Signup /> },
     { path: '/admin/register-admin', element: <AdminRegister />},
-    ...AdminRoute(),
-    ...UserRoute(),
+      ...(user?.role === 'admin' && !guestView ? adminRoutes : []),
+     ...UserRoute({ user, guestView }),
   ]);
 
   if (loading) {

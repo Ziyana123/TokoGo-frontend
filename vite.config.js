@@ -8,8 +8,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://tokogo-backend.onrender.com', // Redirect API requests to backend
+      '/api': 'https://tokogo-backend.onrender.com', 
     },
+  },
+   build: {
+    sourcemap: true, 
   },
   mode: 'development',
 })

@@ -8,12 +8,12 @@ const PersonalizedRecommendations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchRecommendations = async () => {
       setLoading(true);
 
       if (!user) {
-        setRecommendations([]); 
+        setRecommendations([]);
         setLoading(false);
         return;
       }
@@ -26,11 +26,17 @@ const PersonalizedRecommendations = () => {
           for (const pack of localPacks) {
             const res = await axios.post('https://tokogo-backend.onrender.com/api/ai/generate', pack, {
               withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${user.token}`, // Pass the token if needed
+              }
             });
             recs.push(...res.data.products);
           }
         } else {
           const res = await axios.get('https://tokogo-backend.onrender.com/api/ai/my-recommendations', {
+            headers: {
+              Authorization: `Bearer ${user.token}`  // Assuming 'user.token' is the JWT token
+            },
             withCredentials: true,
           });
           recs = res.data[0]?.recommendedItems || [];
