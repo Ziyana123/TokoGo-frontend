@@ -23,7 +23,7 @@ const ProductModal = ({ product, onClose, addToCart }) => {
   const fetchReviews = async () => {
     try {
       setLoadingReviews(true);
-      const res = await axios.get(`/api/review/${product._id}`);
+      const res = await axios.get(`/review/${product._id}`);
       setReviews(res.data.reviews || []);
     } catch (error) {
       console.error("Failed to fetch reviews", error);
@@ -39,7 +39,7 @@ const ProductModal = ({ product, onClose, addToCart }) => {
 
     try {
       if (currentlyEditingReviewId) {
-        await axios.put(`/api/review/${currentlyEditingReviewId}`, {
+        await axios.put(`/review/${currentlyEditingReviewId}`, {
           rating,
           comment: newReview,
           userId: user._id,
@@ -48,7 +48,7 @@ const ProductModal = ({ product, onClose, addToCart }) => {
         });
         toast.success('Review updated successfully!');
       } else {
-        await axios.post(`/api/review/${product._id}`, {
+        await axios.post(`/review/${product._id}`, {
           rating,
           comment: newReview,
           userId: user._id,
@@ -66,7 +66,7 @@ const ProductModal = ({ product, onClose, addToCart }) => {
   const handleDeleteReview = async (reviewId) => {
     if (!window.confirm('Are you sure you want to delete this review?')) return;
     try {
-      await axios.delete(`/api/review/${reviewId}`);
+      await axios.delete(`/review/${reviewId}`);
       toast.success('Review deleted successfully!');
       resetReviewState();
       fetchReviews();
