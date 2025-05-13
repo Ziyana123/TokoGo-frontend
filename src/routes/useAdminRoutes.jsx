@@ -11,7 +11,7 @@ import EditProduct from '../pages/admin/EditProduct';
 import SharedRoute from './SharedRoute';
 import { useAuth } from '../context/AuthContext';
 
-const adminRoutes = () => {
+const useAdminRoutes = () => {
   const { user, guestView ,loading} = useAuth();
 
   if (loading) return null; 
@@ -44,4 +44,4 @@ const adminRoutes = () => {
     },
   ];
 };
-export default adminRoutes;
+export default useAdminRoutes;

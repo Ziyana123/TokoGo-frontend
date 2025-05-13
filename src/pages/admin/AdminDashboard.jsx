@@ -10,12 +10,28 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+        // Check if the token is available in localStorage
+        const token = localStorage.getItem('token');
+        if (!token) {
+          toast.error("Authorization token is missing");
+          return;
+        }
+
+        
         const res = await axios.get("/api/admins/dashboard-stats", {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
         });
-        setStats(res.data);
+
+        if (res.data) {
+          setStats(res.data);
+        } else {
+          toast.error("No stats available");
+        }
       } catch (error) {
-        console.error("Failed to fetch stats", error);
+        console.error("Failed to fetch stats", error.response || error);
         toast.error("Error fetching dashboard stats");
       } finally {
         setLoading(false);
@@ -29,6 +45,14 @@ const AdminDashboard = () => {
     return (
       <div className="text-center py-10 text-lg font-semibold">
         Loading dashboard...
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <div className="text-center py-10 text-lg font-semibold">
+        No data available
       </div>
     );
   }

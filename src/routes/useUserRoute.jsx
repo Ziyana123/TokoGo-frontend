@@ -15,8 +15,10 @@ import ContactPage from '../pages/user/ContactPage';
 import AboutPage from '../pages/user/AboutPage';
 import MySchedules from "../pages/user/MySchedules";
 import SharedRoute from './SharedRoute';
+import { useAuth } from '../context/AuthContext';
 
-const UserRoute = ({ user, guestView }) => {
+const useUserRoute = () => {
+   const { user, guestView } = useAuth();
   if (guestView) {
     return [
       {
@@ -56,4 +58,4 @@ const UserRoute = ({ user, guestView }) => {
   ];
 };
 
-export default UserRoute;
+export default useUserRoute;

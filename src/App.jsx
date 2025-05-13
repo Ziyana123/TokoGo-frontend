@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import Login from './pages/auth/Login';
@@ -5,21 +6,22 @@ import Signup from './pages/auth/Signup';
 import { useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UserRoute from './routes/UserRoute';
-import adminRoutes from './routes/adminRoutes';
+import useUserRoute from './routes/useUserRoute';
+import useAdminRoutes from './routes/useAdminRoutes';
 import AdminRegister from './pages/admin/AdminRegister';
 
-
 function App() {
-  const { user, loading, guestView  } = useAuth();
+  const { user, loading, guestView } = useAuth();
 
+  const userRoutes = useUserRoute();
+  const adminRouteList = useAdminRoutes() || [];
 
   const routes = useRoutes([
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Signup /> },
-    { path: '/admin/register-admin', element: <AdminRegister />},
-      ...(user?.role === 'admin' && !guestView ? adminRoutes : []),
-     ...UserRoute({ user, guestView }),
+    { path: '/admin/register-admin', element: <AdminRegister /> },
+    ...adminRouteList,
+    ...userRoutes,
   ]);
 
   if (loading) {
@@ -43,7 +45,6 @@ function App() {
         pauseOnHover
         theme="light"
       />
-
       {routes}
     </>
   );
