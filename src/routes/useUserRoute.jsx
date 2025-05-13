@@ -1,4 +1,3 @@
-// routes/UserRoute.js
 import UserLayout from '../layouts/UserLayout';
 import Home from '../pages/user/Home';
 import SchedulePage from '../pages/user/SchedulePage';
@@ -18,7 +17,8 @@ import SharedRoute from './SharedRoute';
 import { useAuth } from '../context/AuthContext';
 
 const useUserRoute = () => {
-   const { user, guestView } = useAuth();
+  const { user, guestView } = useAuth();
+
   if (guestView) {
     return [
       {

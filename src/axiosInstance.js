@@ -3,7 +3,7 @@ import { getToken } from './context/AuthContext';
 
 const axiosInstance = axios.create({
   baseURL: 'https://tokogo-backend.onrender.com/api',
-  timeout: 20000,
+  timeout: 30000,
   withCredentials: true,
 });
 

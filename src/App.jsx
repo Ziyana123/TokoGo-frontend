@@ -1,4 +1,3 @@
-// App.jsx
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import Login from './pages/auth/Login';
@@ -20,8 +19,8 @@ function App() {
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Signup /> },
     { path: '/admin/register-admin', element: <AdminRegister /> },
-    ...adminRouteList,
-    ...userRoutes,
+    ...adminRouteList, // Admin routes
+    ...userRoutes, // User routes
   ]);
 
   if (loading) {

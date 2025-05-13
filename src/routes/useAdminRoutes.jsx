@@ -1,4 +1,3 @@
-
 import { Navigate } from 'react-router-dom';
 import AdminLayout from '../layouts/AdminLayout';
 import AdminDashboard from '../pages/admin/AdminDashboard';
@@ -12,20 +11,18 @@ import SharedRoute from './SharedRoute';
 import { useAuth } from '../context/AuthContext';
 
 const useAdminRoutes = () => {
-  const { user, guestView ,loading} = useAuth();
+  const { user, guestView, loading } = useAuth();
 
-  if (loading) return null; 
+  if (loading) return null;
 
   if (!user || user.role !== 'admin' || guestView) {
     return [
       {
-        path: "/admin/*",
+        path: '/admin/*',
         element: <Navigate to="/" replace />,
       },
     ];
   }
-
-
 
   return [
     {
@@ -44,4 +41,5 @@ const useAdminRoutes = () => {
     },
   ];
 };
+
 export default useAdminRoutes;
