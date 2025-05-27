@@ -34,6 +34,10 @@ const ProductModal = ({ product, onClose, addToCart }) => {
   };
 
   const handleAddReview = async () => {
+    if (!user || !token) {
+      toast.error("You need to login first.");
+      return;
+    }
     if (!newReview.trim()) return;
     if (rating === 0) return toast.error("Please select a rating.");
     if (!token) return console.error('No token found');
@@ -84,6 +88,10 @@ const ProductModal = ({ product, onClose, addToCart }) => {
   };
 
   const handleAddToCart = () => {
+      if (!user || !token) {
+      toast.error("You need to login first.");
+      return;
+    }
     addToCart?.(product);
     toast.success(`Product added to cart!`);
   };
@@ -130,8 +138,8 @@ const ProductModal = ({ product, onClose, addToCart }) => {
             <button
               key={tab}
               className={`capitalize px-3 py-2 text-lg font-medium transition-all duration-300 ${activeTab === tab
-                  ? 'border-b-4 border-blue-500 text-blue-600'
-                  : 'text-gray-500 hover:text-blue-600 hover:border-b-4 hover:border-blue-500'
+                ? 'border-b-4 border-blue-500 text-blue-600'
+                : 'text-gray-500 hover:text-blue-600 hover:border-b-4 hover:border-blue-500'
                 }`}
               onClick={() => setActiveTab(tab)}
             >
